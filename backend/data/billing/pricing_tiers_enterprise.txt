@@ -1,0 +1,6 @@
+Enterprise Plan Pricing and Features
+
+Our Enterprise Plan is tailored for large organizations requiring maximum flexibility, security, and dedicated support. Starting at $499 per month, the Enterprise tier includes unlimited users, unlimited storage, 24/7 dedicated phone and email support with SLA-backed response times, unlimited API requests, custom contract terms, and single sign-on (SSO) integration with SAML 2.0 support.
+
+Enterprise customers benefit from dedicated account management, custom onboarding and training sessions, advanced security features including audit logs and IP whitelisting, data residency options for compliance requirements, and the ability to negotiate custom pricing based on volume and specific needs. We also offer volume discounts starting at 50 users, with pricing scaled to $8 per user per month for deployments over 100 users. Contact our sales team for a customized quote and demonstration.
+

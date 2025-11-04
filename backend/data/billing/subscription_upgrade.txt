@@ -1,0 +1,6 @@
+Subscription Upgrade Process and Benefits
+
+Upgrading your subscription plan is simple and takes effect immediately upon confirmation. To upgrade, log into your account dashboard, navigate to the billing section, and click "Upgrade Plan." You'll see all available plans with their features and pricing displayed side-by-side for easy comparison. Select your desired plan and confirm the upgrade.
+
+When you upgrade, you'll immediately gain access to all features of the higher tier. For billing purposes, we calculate a pro-rated credit for the unused portion of your current plan and apply it to your first invoice on the new plan. For example, if you upgrade from Basic ($29/month) to Premium ($99/month) halfway through your billing cycle, you'll receive a $14.50 credit, and your first Premium invoice will be $84.50 for the remainder of the month. Subsequent months will be billed at the full Premium rate of $99. Upgrades do not extend your current billing cycle; your renewal date remains the same. Annual plan customers upgrading mid-term will have their annual credits calculated proportionally and applied to the new annual plan cost.
+

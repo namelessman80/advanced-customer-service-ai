@@ -1,0 +1,6 @@
+Payment Terms and Conditions
+
+Payment for all subscription services is due in advance of the billing period. Monthly subscriptions are billed on the same day each month based on your signup date, while annual subscriptions are billed once per year on the anniversary of your initial purchase. We accept major credit cards (Visa, MasterCard, American Express, Discover), ACH bank transfers for US customers, and international wire transfers for payments over $1,000.
+
+All prices are quoted in US dollars unless otherwise specified. Invoices are considered due upon receipt, with payment required within 15 days for monthly plans and 30 days for annual or Enterprise plans. Failed payment attempts will result in up to three automatic retry attempts over a 10-day period. If payment cannot be processed after the retry period, your account will be suspended, and access to services will be restricted until payment is received. We reserve the right to charge a $25 failed payment fee and apply a 1.5% monthly finance charge (18% APR) on overdue balances. Customers may update payment methods at any time through the billing section of their account dashboard.
+

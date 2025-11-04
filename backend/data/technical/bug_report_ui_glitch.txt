@@ -1,0 +1,10 @@
+Bug Report: Dashboard Widget Rendering Glitch
+
+Status: Resolved | Reported: 2024-11-01 | Resolved: 2024-11-05 | Severity: Medium
+
+Issue Description: Multiple users reported that dashboard widgets were displaying incorrectly on Firefox browsers, with charts overlapping text labels, columns misaligned, and date pickers appearing off-screen. The issue was most prominent on dashboards containing 6 or more widgets and affected approximately 15% of our Firefox user base running version 119 or later.
+
+Root Cause: A recent update to Firefox's CSS Grid layout rendering engine exposed an incompatibility with our flex-basis calculations in the dashboard grid system. Our CSS was using percentages in combination with flex-grow properties, which Firefox 119+ interpreted differently than Chromium-based browsers, causing widgets to overflow their designated grid areas.
+
+Resolution: We updated the dashboard component's CSS to use explicit grid-template-columns definitions instead of flex-based layouts. The fix uses minmax() functions to ensure responsive behavior while maintaining consistent sizing across browsers: grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)). We also added Firefox-specific vendor prefixes where needed and implemented comprehensive cross-browser testing in our CI/CD pipeline. The fix was deployed in version 3.2.1 and has been verified across Firefox 119-121, Chrome 120, Safari 17, and Edge 120. No further reports of this issue have been received since the patch was deployed. Users who experienced this issue should clear their browser cache or hard-refresh (Ctrl+Shift+R) to load the updated stylesheets.
+

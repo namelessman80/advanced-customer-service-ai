@@ -1,0 +1,10 @@
+Bug Report: API Timeout on Large Data Exports
+
+Status: Resolved | Reported: 2024-10-15 | Resolved: 2024-10-22 | Severity: High
+
+Issue Description: Users with Enterprise plans reported that API requests for exporting large datasets (over 50,000 records) were timing out after 30 seconds, returning 504 Gateway Timeout errors. This affected the /api/v2/export endpoint specifically when requesting full data exports with multiple joined tables and custom field transformations.
+
+Root Cause: The export endpoint was performing all data processing synchronously, including database queries, data transformation, and CSV generation. For large datasets, this exceeded our default 30-second gateway timeout, causing the request to fail before completion.
+
+Resolution: We implemented an asynchronous job queue system for large exports. Requests for more than 10,000 records now return immediately with a job ID and status "processing." Clients can poll the /api/v2/export/status/{job_id} endpoint to check progress, and retrieve the completed file from /api/v2/export/download/{job_id} once processing is complete. Jobs typically complete within 2-5 minutes depending on data volume. The system automatically retains export files for 48 hours before deletion. This solution was deployed in version 2.8.3 and has reduced timeout errors by 99.8%. Additionally, we increased the maximum export limit to 100,000 records per request.
+

@@ -1,0 +1,6 @@
+Subscription Cancellation Guide
+
+You can cancel your subscription at any time without penalties or fees. To initiate cancellation, log into your account, go to Settings > Billing > Subscription, and click the "Cancel Subscription" button at the bottom of the page. You'll be asked to provide optional feedback about your cancellation reason, then confirm your decision. Upon cancellation, you'll receive an email confirmation with details about your remaining access period.
+
+Your service will continue until the end of your current paid billing period. For monthly subscriptions, this means you retain full access until the end of the month you've already paid for. Annual subscribers will maintain access for the remainder of their annual term. We do not provide pro-rated refunds for cancellations outside the 30-day money-back guarantee period. After cancellation, your account enters a 90-day grace period in read-only mode, during which you can export your data or reactivate your subscription without losing any information. If you choose to reactivate during this period, your previous settings and data will be fully restored. After 90 days, accounts are permanently deleted and cannot be recovered. For assistance with cancellation or to discuss alternatives such as plan downgrades, contact our support team.
+

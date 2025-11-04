@@ -1,0 +1,6 @@
+Troubleshooting Login Issues
+
+If you're experiencing problems logging into your account, start by verifying that you're using the correct email address and password. Password fields are case-sensitive, so ensure Caps Lock is not enabled. If you've forgotten your password, click the "Forgot Password" link on the login page to receive a password reset email. Check your spam folder if the email doesn't arrive within 5 minutes, and make sure to use the reset link within 24 hours as it expires for security reasons.
+
+Common login issues include browser cookie problems and cached credentials. Try clearing your browser cache and cookies, or attempt logging in using an incognito/private browsing window. If you're still unable to log in, your account may be temporarily locked due to multiple failed login attempts. Account locks automatically expire after 30 minutes, or you can contact support to unlock your account immediately. For SSO users experiencing login failures, verify that your organization's identity provider is functioning correctly and that your account hasn't been deactivated in your company's directory. If none of these solutions work, try accessing the platform from a different device or network, as firewall or network restrictions may be blocking authentication requests.
+

@@ -1,0 +1,17 @@
+Community Forum: Most Common Questions and Answers
+
+Q: How do I bulk import users from a CSV file?
+A: Go to Settings > Users > Import. Download our CSV template, fill in the required fields (email, name, role), and upload the file. The system validates the format and shows a preview before confirming. You can import up to 1,000 users at once. Premium and Enterprise plans support larger imports up to 10,000 users. (Thread: 450+ upvotes, marked as solution by admin)
+
+Q: Can I customize the email templates for notifications?
+A: Yes! Enterprise plan customers can customize all email templates. Go to Settings > Notifications > Email Templates. You can modify subject lines, body content, and add your company branding. Use template variables like {{user.name}} and {{task.title}} to personalize messages. Basic and Premium plans have limited customization (logo and color scheme only). (Thread: 320+ upvotes)
+
+Q: What's the best way to organize large projects with multiple teams?
+A: The community recommends using workspace hierarchies: create a main workspace for the project, then sub-workspaces for each team. Use tags to categorize cross-team tasks, and set up shared dashboards at the main workspace level for project visibility. Enable @mentions for cross-team communication and create standardized templates for recurring task types. Several users shared their folder structures and naming conventions – search for "project organization templates" in the forum. (Thread: 280+ upvotes, 45 replies with examples)
+
+Q: How do I recover deleted items?
+A: Deleted items go to the Trash folder where they're retained for 30 days. Access it via the sidebar menu > Trash. You can restore individual items or bulk restore multiple items. After 30 days, items are permanently deleted and cannot be recovered. Enterprise customers with backup enabled can request historical restores up to 90 days by contacting support. (Thread: 520+ upvotes, official support response)
+
+Q: Why aren't my file attachments uploading?
+A: Common causes: 1) File size exceeds your plan limit (Basic: 25MB, Premium: 100MB, Enterprise: 500MB per file), 2) Unsupported file type (we support most common formats but block .exe, .bat, .sh for security), 3) Browser extension conflicts (try incognito mode), 4) Storage quota exceeded (check Settings > Storage). For large files, use our direct S3 upload feature available to Premium and Enterprise users. (Thread: 190+ upvotes, multiple solutions)
+

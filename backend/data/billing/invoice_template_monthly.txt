@@ -1,0 +1,6 @@
+Monthly Invoice Template and Line Items
+
+Monthly invoices are generated on the first day of each billing cycle and sent to the primary account email address. A typical monthly invoice includes the base subscription fee (e.g., Premium Plan: $99.00), any additional user charges beyond the included limit ($15 per additional user), storage overage fees calculated at $0.10 per GB over the plan limit, and API request overages billed at $0.05 per 1,000 requests beyond the included quota.
+
+Additional line items may include one-time setup fees for custom integrations ($500-$2,000 depending on complexity), training session charges ($200 per hour), and any applicable taxes based on your billing address. Payment is due within 15 days of invoice date, and we accept credit cards, ACH transfers, and wire transfers for invoices over $1,000. Late payments may incur a 1.5% monthly finance charge.
+

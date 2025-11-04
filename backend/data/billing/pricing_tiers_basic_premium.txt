@@ -1,0 +1,6 @@
+Pricing Tiers: Basic and Premium Plans
+
+Our Basic Plan is designed for individuals and small teams just getting started. At $29 per month, you get access to core features including up to 5 user accounts, 10GB of storage, standard email support, and basic API access with 1,000 requests per day. The Basic Plan includes all essential tools for managing your workflows and is perfect for teams with straightforward needs.
+
+The Premium Plan, priced at $99 per month, offers significantly expanded capabilities for growing businesses. Premium subscribers enjoy unlimited user accounts, 100GB of storage, priority email and chat support with response times under 4 hours, advanced API access with 10,000 requests per day, custom integrations, and detailed analytics dashboards. Premium customers also receive early access to new features and quarterly strategy consultations with our product team.
+

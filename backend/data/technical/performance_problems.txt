@@ -1,0 +1,6 @@
+Resolving Performance and Speed Problems
+
+Performance issues often stem from network connectivity, browser optimization, or account-specific factors. First, test your internet connection speed at speedtest.net – we recommend a minimum of 10 Mbps download speed for optimal performance. If your connection is slow, try closing other applications using bandwidth, moving closer to your WiFi router, or connecting via ethernet cable for a more stable connection.
+
+Browser-related performance problems can usually be resolved by clearing your cache, disabling unnecessary extensions, or updating to the latest browser version. We officially support the latest versions of Chrome, Firefox, Safari, and Edge. If pages load slowly or time out, check if you have a large number of items in your workspace (over 10,000 records), as this can impact load times. Consider archiving old data or breaking large datasets into smaller segments. For dashboard and reporting performance issues, try reducing the date range of your queries, limiting the number of concurrent filters, or scheduling reports to run during off-peak hours. If you notice performance degradation during specific times of day, this may indicate peak usage periods – contact our support team if you're on an Enterprise plan to discuss dedicated resources or performance optimization strategies.
+

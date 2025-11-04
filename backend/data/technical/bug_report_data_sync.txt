@@ -1,0 +1,12 @@
+Bug Report: Mobile-Web Data Synchronization Delay
+
+Status: In Progress | Reported: 2024-11-10 | Expected Resolution: 2024-11-25 | Severity: Medium
+
+Issue Description: Users have reported delays of 5-15 minutes between making changes on the mobile app and seeing those changes reflected on the web application, and vice versa. The issue primarily affects real-time collaborative features such as shared task lists, comments, and status updates. Approximately 8% of users with active mobile sessions are experiencing this sync lag, particularly during peak usage hours (9 AM - 5 PM EST).
+
+Root Cause Analysis: Our investigation revealed that the WebSocket connection pool serving mobile clients is under-provisioned for current usage levels. During peak times, mobile clients are experiencing connection queue delays, falling back to polling every 60 seconds instead of receiving real-time push notifications. Additionally, we discovered that the sync conflict resolution algorithm prioritizes web client changes over mobile client changes, causing mobile updates to be processed in a secondary batch queue.
+
+Current Mitigation: We've implemented a temporary fix that increases the WebSocket connection pool size by 50% and reduces the polling fallback interval from 60 seconds to 20 seconds. This has improved sync times to 2-5 minutes on average, but doesn't fully resolve the underlying architecture issue.
+
+Planned Resolution: The engineering team is redesigning the sync architecture to use a distributed message queue system (Redis Pub/Sub) that will eliminate connection pool bottlenecks and provide guaranteed sub-second synchronization. The new system will also implement proper two-way sync with last-write-wins conflict resolution and automatic retry logic. Expected deployment is version 3.5.0 on November 25th. Users can force an immediate sync by pulling down to refresh on mobile or clicking the refresh icon in the web app header.
+

@@ -1,0 +1,6 @@
+Annual Invoice Structure and Savings
+
+Annual billing provides significant cost savings compared to monthly payments. When you choose annual billing, you receive a 20% discount on the base subscription price. For example, the Premium Plan costs $1,188 annually (equivalent to $99/month) instead of $1,188, saving you $237.60 per year. The Basic Plan annual price is $278.40 (20% off the monthly rate of $348/year).
+
+Annual invoices include the full year's subscription fee, estimated usage overages based on your historical consumption patterns, and any contracted custom services or integrations. Payment terms for annual invoices are net 30 days, with options for quarterly installments available for Enterprise customers. Annual subscribers can upgrade their plan mid-term with pro-rated adjustments, and unused time on the previous plan will be credited toward the new plan cost. Annual contracts automatically renew unless cancelled at least 30 days before the renewal date.
+
