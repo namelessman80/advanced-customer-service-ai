@@ -44,3 +44,9 @@ logs/
 htmlcov/
 .pytest_cache/
 
+keyinfo.md
+
+# Security - API Keys and Credentials (DO NOT COMMIT)
+keyinfo.md
+backend/.env
+frontend/.env.local
