@@ -241,3 +241,31 @@ def get_policy_context() -> str:
     """
     return load_policy_documents()
 
+
+def verify_chromadb_connection() -> bool:
+    """
+    Verify ChromaDB connection and collection exists.
+    Used during startup to validate the system.
+    
+    Returns:
+        True if connection successful
+        
+    Raises:
+        Exception if connection fails
+    """
+    try:
+        client = get_chroma_client()
+        collection = get_collection()
+        
+        # Try to get collection info
+        count = collection.count()
+        print(f"   ChromaDB collection '{COLLECTION_NAME}' contains {count} documents")
+        
+        if count == 0:
+            raise Exception("ChromaDB collection is empty. Run ingest_data.py first.")
+        
+        return True
+        
+    except Exception as e:
+        raise Exception(f"ChromaDB connection failed: {str(e)}")
+
