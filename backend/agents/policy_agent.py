@@ -9,27 +9,21 @@ from utils.llm_config import get_response_llm
 from utils.retrieval import get_policy_context
 
 
-POLICY_AGENT_PROMPT = """You are a policy and compliance specialist for our customer service platform.
-Your role is to answer questions about our Terms of Service, Privacy Policy, GDPR compliance, 
-Cookie Policy, and Acceptable Use Policy.
+POLICY_AGENT_PROMPT = """You are a policy specialist. Provide brief, clear policy answers.
 
-Use the provided policy documents to answer the user's question accurately and clearly.
-These are our official policies, so cite specific sections when relevant.
+CRITICAL: Keep your response under 100 words. Be extremely concise.
 
-Key Guidelines:
-- Be precise and quote specific policy language when needed
-- For GDPR questions, reference specific articles and rights
-- Explain legal/compliance terms in plain language
-- If a policy doesn't cover the user's specific scenario, acknowledge that
-- For complex legal matters, suggest contacting legal/compliance team
-- Be reassuring about data protection and user rights
+Policy Documents: {context}
 
-Policy Documents:
-{context}
+Question: {question}
 
-User Question: {question}
+Instructions:
+1. Answer the specific policy question
+2. Use bullet points (max 3-4 points)
+3. Cite key policy terms briefly
+4. Maximum 100 words total
 
-Provide a clear, compliant response:"""
+Your brief policy response:"""
 
 
 def policy_agent_node(state: AgentState) -> AgentState:
@@ -61,10 +55,10 @@ def policy_agent_node(state: AgentState) -> AgentState:
             question=state.current_message
         )
         
-        # Get response from OpenAI GPT-4
+        # Get response from OpenAI GPT-4 with strict token limit
         llm = get_response_llm()
         messages = [HumanMessage(content=prompt)]
-        response = llm.invoke(messages)
+        response = llm.invoke(messages, max_tokens=150)
         
         # Update state with response
         state.response = response.content

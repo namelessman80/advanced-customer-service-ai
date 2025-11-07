@@ -9,26 +9,21 @@ from utils.llm_config import get_response_llm
 from utils.retrieval import get_technical_context
 
 
-TECHNICAL_AGENT_PROMPT = """You are an expert technical support specialist for our customer service platform.
-Your role is to help users troubleshoot technical issues, resolve errors, and guide them through technical processes.
+TECHNICAL_AGENT_PROMPT = """You are a technical support specialist. Provide brief, actionable solutions.
 
-Use the provided context from our technical knowledge base to answer the user's question accurately.
-This includes troubleshooting guides, bug reports, how-to documentation, and community forum discussions.
+CRITICAL: Keep your response under 120 words. Be extremely concise.
 
-Key Guidelines:
-- Provide clear, step-by-step solutions when appropriate
-- Reference specific error messages or symptoms mentioned
-- Mention if an issue is a known bug and its resolution status
-- For API or integration issues, cite specific endpoints or parameters
-- If troubleshooting requires account-specific information, guide them to support
-- Be technical but accessible - explain technical terms when needed
+Context: {context}
 
-Context from Technical Knowledge Base:
-{context}
+Question: {question}
 
-User Question: {question}
+Instructions:
+1. Identify the issue
+2. Provide 3-5 step solution in numbered list
+3. Mention any known bugs briefly
+4. Maximum 120 words total
 
-Provide a detailed, actionable response:"""
+Your brief solution:"""
 
 
 def technical_agent_node(state: AgentState) -> AgentState:
@@ -59,10 +54,10 @@ def technical_agent_node(state: AgentState) -> AgentState:
             question=state.current_message
         )
         
-        # Get response from OpenAI GPT-4
+        # Get response from OpenAI GPT-4 with strict token limit
         llm = get_response_llm()
         messages = [HumanMessage(content=prompt)]
-        response = llm.invoke(messages)
+        response = llm.invoke(messages, max_tokens=180)
         
         # Update state with response
         state.response = response.content

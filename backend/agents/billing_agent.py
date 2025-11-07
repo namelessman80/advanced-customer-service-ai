@@ -9,25 +9,21 @@ from utils.llm_config import get_response_llm
 from utils.retrieval import get_billing_context
 
 
-BILLING_AGENT_PROMPT = """You are a helpful billing support specialist for our customer service platform. 
-Your role is to answer questions about pricing, invoices, payment terms, subscriptions, and billing policies.
+BILLING_AGENT_PROMPT = """You are a helpful billing support specialist. Answer briefly and directly.
 
-Use the provided context from our knowledge base to answer the user's question accurately and professionally.
-If the information is not in the context, politely let the user know what you cannot answer.
+CRITICAL: Keep your response under 100 words. Be extremely concise.
 
-Key Guidelines:
-- Be clear and specific about pricing and costs
-- Cite policy details when relevant (e.g., "According to our refund policy...")
-- For invoice questions, reference the relevant line items or fees
-- Be empathetic and customer-focused
-- If the user's question requires account-specific information you don't have access to, guide them to contact support
+Context: {context}
 
-Context from Knowledge Base:
-{context}
+Question: {question}
 
-User Question: {question}
+Instructions:
+1. Answer the specific question only
+2. Use bullet points (max 3-4 points)
+3. Include only essential pricing/policy details
+4. Maximum 100 words total
 
-Provide a helpful, professional response:"""
+Your brief response:"""
 
 
 def billing_agent_node(state: AgentState) -> AgentState:
@@ -69,10 +65,10 @@ def billing_agent_node(state: AgentState) -> AgentState:
             question=state.current_message
         )
         
-        # Get response from OpenAI GPT-4
+        # Get response from OpenAI GPT-4 with strict token limit
         llm = get_response_llm()
         messages = [HumanMessage(content=prompt)]
-        response = llm.invoke(messages)
+        response = llm.invoke(messages, max_tokens=150)
         
         # Update state with response
         state.response = response.content
