@@ -347,11 +347,22 @@ def test_no_information() -> Dict[str, bool]:
     response = result.get('response', '')
     
     # Check that it doesn't hallucinate - should indicate it can't answer
-    hallucination_keywords = ['sunny', 'rainy', 'cloudy', 'degrees', 'temperature', '°F', '°C']
-    graceful_keywords = ['cannot', "can't", 'unable', 'not able', 'outside', 'weather', 'not provide', 'not answer']
+    # Strong hallucination indicators (specific weather conditions)
+    strong_hallucination_keywords = ['sunny', 'rainy', 'cloudy', 'snowing', 'foggy', 'clear skies']
+    # Weak indicators (could be in a refusal like "I can't provide temperature")
+    weak_hallucination_keywords = ['degrees', 'temperature', '°F', '°C']
     
-    has_hallucination = any(keyword in response.lower() for keyword in hallucination_keywords)
+    graceful_keywords = ['cannot', "can't", 'unable', 'not able', 'not provide', 'not answer', 'sorry']
+    
+    # Strong hallucination check
+    has_strong_hallucination = any(keyword in response.lower() for keyword in strong_hallucination_keywords)
+    
+    # Weak hallucination only counts if no graceful refusal is present
+    has_weak_hallucination = any(keyword in response.lower() for keyword in weak_hallucination_keywords)
     has_graceful = any(keyword in response.lower() for keyword in graceful_keywords)
+    
+    # Only fail if strong hallucination OR (weak hallucination WITHOUT graceful refusal)
+    has_hallucination = has_strong_hallucination or (has_weak_hallucination and not has_graceful)
     
     if not has_hallucination:
         print_pass("No hallucinated weather information")
@@ -363,6 +374,14 @@ def test_no_information() -> Dict[str, bool]:
             results['test_8'] = True
     else:
         print_fail("Response contains hallucinated information")
+        # Show which keywords were found
+        if has_strong_hallucination:
+            found = [kw for kw in strong_hallucination_keywords if kw in response.lower()]
+            print_warn(f"Found strong hallucination keywords: {', '.join(found)}")
+        if has_weak_hallucination and not has_graceful:
+            found = [kw for kw in weak_hallucination_keywords if kw in response.lower()]
+            print_warn(f"Found weak hallucination keywords (without refusal): {', '.join(found)}")
+        print_warn(f"Full response: {response}")
         results['test_8'] = False
     
     print_info(f"Agent type: {result.get('agent_type')}")
