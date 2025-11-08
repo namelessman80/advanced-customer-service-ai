@@ -44,10 +44,10 @@ def policy_agent_node(state: AgentState) -> AgentState:
     try:
         print(f"📋 Policy Agent processing query...")
         
-        # Get pre-loaded policy context (Pure CAG - no database query)
-        context = get_policy_context()
+        # Get relevant policy context (Pure CAG with smart selection)
+        context = get_policy_context(query=state.current_message)
         
-        print(f"   ✓ Using pre-loaded policy documents (Pure CAG)")
+        # Note: Smart selection message is printed by get_policy_context()
         
         # Format prompt with context
         prompt = POLICY_AGENT_PROMPT.format(

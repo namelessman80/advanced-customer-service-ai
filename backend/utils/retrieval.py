@@ -110,35 +110,94 @@ def query_rag(
         return []
 
 
-def load_policy_documents() -> str:
+def load_policy_documents(query: Optional[str] = None) -> str:
     """
-    Load all policy documents into memory for CAG (Context-Augmented Generation).
+    Load policy documents into memory for CAG (Context-Augmented Generation).
+    With smart selection: only loads relevant policies based on query keywords.
+    
+    Args:
+        query: User query to determine relevant policies (optional)
     
     Returns:
-        Combined text of all policy documents
+        Combined text of relevant policy documents
     """
     global _policy_cache
-    
-    # Return cached version if available
-    if _policy_cache is not None:
-        return _policy_cache
     
     try:
         # Path to policy documents
         data_dir = Path(__file__).parent.parent / "data" / "policy"
         
-        # Load all policy documents
+        # If no query, load all documents (for initial cache)
+        if query is None:
+            # Return cached version if available
+            if _policy_cache is not None:
+                return _policy_cache
+            
+            # Load all policy documents
+            policy_docs = []
+            for policy_file in data_dir.glob("*.txt"):
+                with open(policy_file, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                    policy_docs.append(f"=== {policy_file.stem} ===\n{content}\n")
+            
+            # Combine all documents
+            _policy_cache = "\n".join(policy_docs)
+            print(f"✓ Loaded {len(policy_docs)} policy documents into CAG cache")
+            
+            return _policy_cache
+        
+        # Smart selection based on query keywords
+        query_lower = query.lower()
+        
+        # Policy file mapping with keywords
+        policy_keywords = {
+            'privacy_policy.txt': ['privacy', 'personal data', 'personal information', 'data collection', 'private'],
+            'gdpr_data_processing.txt': ['gdpr', 'processing', 'data processing', 'lawful basis', 'consent', 'legitimate interest'],
+            'gdpr_data_rights.txt': ['gdpr', 'rights', 'data rights', 'access', 'deletion', 'portability', 'rectification', 'erasure'],
+            'terms_of_service.txt': ['terms', 'service', 'agreement', 'use', 'account', 'termination', 'liability'],
+            'cookie_policy.txt': ['cookie', 'cookies', 'tracking', 'analytics', 'browser'],
+            'acceptable_use_policy.txt': ['acceptable', 'prohibited', 'restrictions', 'abuse', 'misuse', 'violation']
+        }
+        
+        # Determine which policies are relevant
+        relevant_policies = []
+        match_scores = {}
+        
+        for policy_file, keywords in policy_keywords.items():
+            score = sum(1 for keyword in keywords if keyword in query_lower)
+            if score > 0:
+                match_scores[policy_file] = score
+        
+        # If we have matches, use top matches
+        if match_scores:
+            # Sort by score and take top matches
+            sorted_matches = sorted(match_scores.items(), key=lambda x: x[1], reverse=True)
+            
+            # Take policies with highest scores (at least 2 policies, max 3)
+            top_score = sorted_matches[0][1]
+            for policy_file, score in sorted_matches:
+                if score >= top_score or len(relevant_policies) < 2:
+                    relevant_policies.append(policy_file)
+                if len(relevant_policies) >= 3:
+                    break
+        else:
+            # No clear matches - use all policies (fallback)
+            relevant_policies = list(policy_keywords.keys())
+        
+        # Load selected policies
         policy_docs = []
-        for policy_file in data_dir.glob("*.txt"):
-            with open(policy_file, 'r', encoding='utf-8') as f:
-                content = f.read()
-                policy_docs.append(f"=== {policy_file.stem} ===\n{content}\n")
+        for policy_file in relevant_policies:
+            policy_path = data_dir / policy_file
+            if policy_path.exists():
+                with open(policy_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                    policy_docs.append(f"=== {policy_path.stem} ===\n{content}\n")
         
-        # Combine all documents
-        _policy_cache = "\n".join(policy_docs)
-        print(f"✓ Loaded {len(policy_docs)} policy documents into CAG cache")
+        # Combine selected documents
+        result = "\n".join(policy_docs)
+        print(f"   ✓ Selected {len(policy_docs)}/{len(policy_keywords)} relevant policies (Smart CAG)")
         
-        return _policy_cache
+        return result
         
     except Exception as e:
         print(f"Error loading policy documents: {str(e)}")
@@ -231,15 +290,22 @@ def get_technical_context(query: str) -> str:
     return format_rag_context(results)
 
 
-def get_policy_context() -> str:
+def get_policy_context(query: Optional[str] = None) -> str:
     """
-    Get context for policy queries using Pure CAG.
-    Returns pre-loaded static documents without database queries.
+    Get context for policy queries using Pure CAG with smart selection.
+    Returns relevant pre-loaded documents based on query keywords.
+    
+    Args:
+        query: User query to determine relevant policies (optional)
     
     Returns:
-        All policy documents as context
+        Relevant policy documents as context
     """
-    return load_policy_documents()
+    if query is None:
+        # No query provided, return all policies (fallback)
+        return load_policy_documents()
+    
+    return load_policy_documents(query=query)
 
 
 def verify_chromadb_connection() -> bool:
